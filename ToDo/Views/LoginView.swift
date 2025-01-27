@@ -11,35 +11,37 @@ struct LoginView: View {
     @StateObject var viewModel = LoginViewViewModel()
     
     var body: some View {
-        VStack {
-            HeaderView(title: "To Do List", subtitle: "Get Things Done", angle: 15, backgroundColor: Color.appMint)
-            
-            if !viewModel.errorMessage.isEmpty {
-                Text(viewModel.errorMessage).foregroundColor(Color.red)
-            }
-            
-            Form {
-                TextField("Email Address", text: $viewModel.email)
-                    .autocapitalization(.none)
-                    .autocorrectionDisabled()
-                
-                SecureField("Password", text: $viewModel.password)
-                    .autocapitalization(.none)
-                    .autocorrectionDisabled()
-                
-                TDButton(backgroundColor: Color.appMint, title: "Log In") {
-                    viewModel.login()
-                }
-            }
-            
+        NavigationView {
             VStack {
-                Text("New around here?")
-                NavigationLink("Create An Acount", destination: RegisterView())
-                    .foregroundColor(Color.appMint)
+                HeaderView(title: "To Do List", subtitle: "Get Things Done", angle: 15, backgroundColor: Color.appMint)
+                
+                if !viewModel.errorMessage.isEmpty {
+                    Text(viewModel.errorMessage).foregroundColor(Color.red)
+                }
+                
+                Form {
+                    TextField("Email Address", text: $viewModel.email)
+                        .autocapitalization(.none)
+                        .autocorrectionDisabled()
+                    
+                    SecureField("Password", text: $viewModel.password)
+                        .autocapitalization(.none)
+                        .autocorrectionDisabled()
+                    
+                    TDButton(backgroundColor: Color.appMint, title: "Log In") {
+                        viewModel.login()
+                    }
+                }
+                
+                VStack {
+                    Text("New around here?")
+                    NavigationLink("Create An Acount", destination: RegisterView())
+                        .foregroundColor(Color.appMint)
+                }
+                .padding(.top, 10)
+                
+                Spacer()
             }
-            .padding(.top, 10)
-            
-            Spacer()
         }
     }
 }
